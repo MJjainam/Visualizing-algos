@@ -42,7 +42,7 @@ jobs:
         id: 'sanitize_workflow_name'
         run: |
           # Remove emojis and special chars, convert spaces to underscores, lowercase
-          SANITIZED=$(echo "${{ github.workflow }}" | sed 's/[^ a-zA-Z0-9]//g' | tr ' ' '_' | tr '[:upper:]' '[:lower:]')
+          SANITIZED=$(echo "${{ github.workflow }}" | sed 's/[^ a-zA-Z0-9]//g' | xargs | tr ' ' '_' | tr '[:upper:]' '[:lower:]')
           echo "gha_name=$SANITIZED" >> $GITHUB_OUTPUT
 
       - name: 'Checkout repository'
