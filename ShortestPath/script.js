@@ -23,7 +23,6 @@ function _add_vertex(vertex){
 		distance : a number that tells it's distance from the source vertex
 		_parent : a pointer that points to it's predecessor in the shortest path
 		visited : a boolean value that tells the program wheather the vertex has been visited or not in the traversal
-
 	The Vertex object is then pushed into array "Graph.Vertices"
 	The Array "Graph.Vertices" is the required Adjacency List representation of the graph
 */
