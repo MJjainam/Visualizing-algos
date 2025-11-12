@@ -38,22 +38,8 @@ jobs:
           permission-issues: 'write'
           permission-pull-requests: 'write'
 
-      - name: 'Sanitize workflow name'
-        id: 'sanitize_workflow_name'
-        run: |
-          # Remove emojis and special chars, convert spaces to underscores, lowercase
-          SANITIZED=$(echo "${{ github.workflow }}" | sed 's/[^ a-zA-Z0-9]//g' | xargs | tr ' ' '_' | tr '[:upper:]' '[:lower:]')
-          echo "gha_name=$SANITIZED" >> $GITHUB_OUTPUT
-
       - name: 'Checkout repository'
         uses: 'actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8' # ratchet:actions/checkout@v5
-
-      - name: 'Debug: Print environment variables'
-        run: |
-          echo "GHA_NAME: ${{ steps.sanitize_workflow_name.outputs.gha_name }}"
-          echo "Workflow: ${{ github.workflow }}"
-          echo "Repository: ${{ github.repository }}"
-          echo "Event: ${{ github.event_name }}"
 
       - name: 'Run Gemini pull request review'
         uses: 'google-github-actions/run-gemini-cli@v0' # ratchet:exclude
@@ -65,7 +51,6 @@ jobs:
           PULL_REQUEST_NUMBER: '${{ github.event.pull_request.number || github.event.issue.number }}'
           REPOSITORY: '${{ github.repository }}'
           ADDITIONAL_CONTEXT: '${{ inputs.additional_context }}'
-          GHA_NAME: '${{ steps.sanitize_workflow_name.outputs.gha_name }}'
         with:
           gcp_location: '${{ vars.GOOGLE_CLOUD_LOCATION }}'
           gcp_project_id: '${{ vars.GOOGLE_CLOUD_PROJECT }}'

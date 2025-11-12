@@ -51,13 +51,6 @@ jobs:
             core.info(`Found ${labelNames.length} labels: ${labelNames.join(', ')}`);
             return labelNames;
 
-      - name: 'Sanitize workflow name'
-        id: 'sanitize_workflow_name'
-        run: |
-          # Remove emojis and special chars, convert spaces to underscores, lowercase
-          SANITIZED=$(echo "${{ github.workflow }}" | sed 's/[^ a-zA-Z0-9]//g' | tr ' ' '_' | tr '[:upper:]' '[:lower:]')
-          echo "gha_name=$SANITIZED" >> $GITHUB_OUTPUT
-
       - name: 'Run Gemini issue analysis'
         id: 'gemini_analysis'
         if: |-
@@ -68,7 +61,6 @@ jobs:
           ISSUE_TITLE: '${{ github.event.issue.title }}'
           ISSUE_BODY: '${{ github.event.issue.body }}'
           AVAILABLE_LABELS: '${{ steps.get_labels.outputs.available_labels }}'
-          GHA_NAME: '${{ steps.sanitize_workflow_name.outputs.gha_name }}'
         with:
           gcp_location: '${{ vars.GOOGLE_CLOUD_LOCATION }}'
           gcp_project_id: '${{ vars.GOOGLE_CLOUD_PROJECT }}'
