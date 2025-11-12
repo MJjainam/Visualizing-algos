@@ -44,7 +44,7 @@ jobs:
           ref: 'testing-gemini-cli-app'
 
       - name: 'Run Gemini pull request review'
-        uses: './.github/workflows/action.yml' # ratchet:exclude
+        uses: './.github/actions/gemini-cli' # ratchet:exclude
         id: 'gemini_pr_review'
         env:
           GITHUB_TOKEN: '${{ steps.mint_identity_token.outputs.token || secrets.GITHUB_TOKEN || github.token }}'
