@@ -82,18 +82,16 @@ function check_duplicates_in_Adj(u,v){
 	This function returns false if the edge with origin and endpoint vertices passed to it already exists, 
 	otherwise, it returns true
 */
-	var i;
-	var j;
-	for(i=0; i < Graph.Vertices.length; i++)
-	{
-		for(j=0; j < Graph.Vertices.length; j++)
-		{
-			if (Graph.Vertices[i] == u && Graph.Vertices[i].Adj[j] == v)
-			{
-				return false;
-			}
+	if (u.Adj.indexOf(v) > -1) {
+		return false;
+	}
+
+	if (document.getElementById("Undirected").checked) {
+		if (v.Adj.indexOf(u) > -1) {
+			return false;
 		}
 	}
+
 	return true;
 }
 
