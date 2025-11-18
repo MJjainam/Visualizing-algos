@@ -234,6 +234,8 @@ jobs:
 
                   My work on this issue is now complete.
                   ```
+            2. If you are posting a comment using `mcp__github__add_issue_comment`, tell in stdout that you are doing so. 
+            If you are not posting a comment using `mcp__github__add_issue_comment`, tell in stdout that you are not doing so with reason.
 
             -----
 
