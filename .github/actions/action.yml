@@ -275,7 +275,10 @@ runs:
       id: 'gemini_run'
       shell: 'bash'
       run: |-
-        set -euo pipefail
+        set -xeuo pipefail
+
+        echo "::group::Run Gemini CLI"
+        echo "Initialising..."
 
         # Create a temporary directory for storing the output, and ensure it's
         # cleaned up later
@@ -289,7 +292,15 @@ runs:
         # Keep track of whether we've failed
         FAILED=false
 
+        echo "--- Environment Variables ---"
+        echo "DEBUG: ${DEBUG}"
+        echo "SURFACE: ${SURFACE}"
+        echo "GEMINI_MODEL: ${GEMINI_MODEL}"
+        echo "PROMPT (first 100 chars): $(echo "${PROMPT}" | head -c 100)..."
+        echo "-----------------------------"
+
         # Run Gemini CLI with the provided prompt, streaming responses in debug
+        echo "Running Gemini CLI..."
         if [[ "${DEBUG}" = true ]]; then
           echo "::warning::Gemini CLI debug logging is enabled. This will stream responses, which could reveal sensitive information if processed with untrusted inputs."
           if ! { gemini --yolo --prompt "${PROMPT}" 2> >(tee "${TEMP_STDERR}" >&2) | tee "${TEMP_STDOUT}"; }; then
@@ -300,6 +311,17 @@ runs:
             FAILED=true
           fi
         fi
+        echo "Gemini CLI finished."
+
+        echo "--- Gemini CLI Stdout ---"
+        cat "${TEMP_STDOUT}"
+        echo "-------------------------"
+
+        echo "--- Gemini CLI Stderr ---"
+        cat "${TEMP_STDERR}"
+        echo "-------------------------"
+
+        echo "FAILED status: ${FAILED}"
 
         # Create the artifacts directory and copy full logs
         mkdir -p gemini-artifacts
@@ -328,6 +350,7 @@ runs:
           echo "See logs for more details"
           exit 1
         fi
+        echo "::endgroup::"
       env:
         DEBUG: '${{ fromJSON(inputs.gemini_debug || false) }}'
         GEMINI_API_KEY: '${{ inputs.gemini_api_key }}'
