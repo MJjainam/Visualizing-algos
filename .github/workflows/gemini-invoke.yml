@@ -250,7 +250,7 @@ jobs:
 
               - **Commit Messages**: All commits made with `mcp__github__create_or_update_file` must follow the Conventional Commits standard (e.g., `fix: ...`, `feat: ...`, `docs: ...`).
 
-      - name: 'Check for errors'                                                                                                                                                 █
+      - name: 'Check for errors'
         if: failure() # This step only runs if a previous step failed
         run: |
           echo "The Gemini CLI reported the following errors:"
