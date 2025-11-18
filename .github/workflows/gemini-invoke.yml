@@ -253,5 +253,5 @@ jobs:
       - name: 'Check for errors'                                                                                                                                                 █
         if: failure() # This step only runs if a previous step failed
         run: |
-        echo "The Gemini CLI reported the following errors:"
-        echo "${{ steps.gemini_run.outputs.gemini_errors }}"
+          echo "The Gemini CLI reported the following errors:"
+          echo "${{ steps.gemini_run.outputs.gemini_errors }}"
