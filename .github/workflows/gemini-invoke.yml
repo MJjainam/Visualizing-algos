@@ -42,7 +42,7 @@ jobs:
 
       - name: 'Run Gemini CLI'
         id: 'run_gemini'
-        uses: 'https://github.com/MJjainam/run-gemini-cli@main' # ratchet:exclude
+        uses: 'MJjainam/run-gemini-cli@main' # ratchet:exclude
         env:
           TITLE: '${{ github.event.pull_request.title || github.event.issue.title }}'
           DESCRIPTION: '${{ github.event.pull_request.body || github.event.issue.body }}'
