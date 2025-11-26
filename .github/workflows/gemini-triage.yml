@@ -39,8 +39,8 @@ jobs:
           script: |-
             const labels = [];
             for await (const response of github.paginate.iterator(github.rest.issues.listLabelsForRepo, {
-              owner: context.repo.owner,
-              repo: context.repo.repo,
+              owner: "google-gemini",
+              repo: "gemini-cli",
               per_page: 100, // Maximum per page to reduce API calls
             })) {
               labels.push(...response.data);
