@@ -38,8 +38,8 @@ jobs:
           # the labels.
           script: |-
             const { data: labels } = await github.rest.issues.listLabelsForRepo({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
+              owner: "google-gemini",
+              repo: "gemini-cli",
             });
 
             if (!labels || labels.length === 0) {
