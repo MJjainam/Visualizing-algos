@@ -13,9 +13,7 @@ You are an issue triage assistant. Analyze the current GitHub issue and identify
 ## Input Data
 
 **Available Labels** (comma-separated):
-```
-!{echo $AVAILABLE_LABELS}
-```
+```!{echo $AVAILABLE_LABELS}```
 
 **Issue Title**:
 ```
