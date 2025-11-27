@@ -271,14 +271,13 @@ runs:
           done
         fi
 
+    - name: Setup tmate session
+      uses: mxschmitt/action-tmate@v3
     - name: 'Run Gemini CLI'
       id: 'gemini_run'
       shell: 'bash'
       run: |-
-        set -xeuo pipefail
-
-        echo "::group::Run Gemini CLI"
-        echo "Initialising..."
+        set -euo pipefail
 
         # Create a temporary directory for storing the output, and ensure it's
         # cleaned up later
