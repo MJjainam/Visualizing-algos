@@ -203,6 +203,7 @@ runs:
         set -euo pipefail
         mkdir -p .gemini/commands
         cp -r "${GITHUB_ACTION_PATH}/.github/commands/"* .gemini/commands/
+        echo "${GITHUB_ACTION_PATH}/.github/commands/"
       env:
         GITHUB_ACTION_PATH: '${{ github.action_path }}'
 
