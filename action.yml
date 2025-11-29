@@ -272,8 +272,6 @@ runs:
           done
         fi
 
-    - name: Setup tmate session
-      uses: mxschmitt/action-tmate@v3
     - name: 'Run Gemini CLI'
       id: 'gemini_run'
       shell: 'bash'
